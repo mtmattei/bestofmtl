@@ -1,0 +1,7 @@
+dist/
+work/
+**/bin/
+**/obj/
+**/.vs/
+*.user
+*.log

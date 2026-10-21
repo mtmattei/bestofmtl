@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#191919" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="description" content="An independent Best of Montréal app concept. Explore local favourites, build a demo ballot, and try a simpler voting experience in English or French." />
+    <title>Best of Montréal — Independent app concept</title>
+    <script type="text/javascript" src="./require.js"></script>
+    <script type="module" src="./uno-bootstrap.js"></script>
+    $(ADDITIONAL_CSS)
+    $(ADDITIONAL_HEAD)
+    <style>
+      html,body { margin:0; background:#faf9f6; color:#191919; }
+      #uno-body .uno-loader { position:fixed; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:18px; padding:28px; box-sizing:border-box; background:#faf9f6; font-family:Arial,sans-serif; text-align:center; }
+      #uno-body .uno-loader .logo { display:none; }
+      .load-masthead { margin:0; font:700 clamp(24px,5vw,38px)/1.2 Georgia,serif; letter-spacing:-1px; }
+      .load-masthead em { font-weight:400; }
+      .load-label { margin:0; color:#716b60; font-size:10px; letter-spacing:2px; }
+      #uno-body .uno-loader progress { position:static; width:min(280px,80vw); height:5px; border:0; border-radius:3px; overflow:hidden; accent-color:#b28a36; }
+      progress::-webkit-progress-bar { background:#e8e2d5; }
+      progress::-webkit-progress-value { background:#b28a36; }
+      .load-caption { margin:0; font-size:14px; line-height:1.7; color:#716b60; }
+      .load-help { margin-top:16px; max-width:340px; font-size:12px; line-height:1.7; color:#716b60; }
+      .load-help summary { cursor:pointer; padding:12px; }
+      .load-help a { color:#191919; text-underline-offset:3px; }
+      .uno-loader .alert { color:#9f3829; max-width:380px; overflow-wrap:anywhere; }
+      noscript { display:block; padding:32px; font:16px/1.6 Arial,sans-serif; }
+    </style>
+</head>
+<body>
+    <div id="uno-body" class="container-fluid uno-body">
+        <div class="uno-loader" loading-position="bottom" loading-alert="none" role="status" aria-live="polite">
+            <img class="logo" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="" />
+            <p class="load-label">INDEPENDENT APP CONCEPT</p>
+            <h1 class="load-masthead">BEST <em>of</em> MONTRÉAL</h1>
+            <progress aria-label="Loading the app"></progress>
+            <p class="load-caption">Your city. Your favourites.<br />Loading your ballot · Chargement du bulletin</p>
+            <span class="alert"></span>
+            <details class="load-help"><summary>Taking longer than expected?</summary><p>The first visit takes a moment. Check your connection and <a href="./">try loading again</a>. Your saved demo choices stay on this device.</p></details>
+        </div>
+    </div>
+    <noscript>This app needs JavaScript. Enable it in your browser and reload, or <a href="https://www.votemtl.com/">visit the official ballot</a>.</noscript>
+</body>
+</html>

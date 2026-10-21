@@ -1,0 +1,10 @@
+{
+  "background_color": "#FBFAF6",
+  "description": "Your city. Your favourites. An independent Montréal voting app concept.",
+  "display": "standalone",
+  "name": "Best of Montréal — Independent app concept",
+  "short_name": "Best of MTL",
+  "start_url": "/index.html",
+  "theme_color": "#191919",
+  "scope": "/"
+}

@@ -1,0 +1,31 @@
+using BonjourMtl.Models;
+var tests=0;
+void Check(bool condition,string name){if(!condition)throw new Exception("FAIL: "+name);Console.WriteLine("PASS: "+name);tests++;}
+void Reject(Action action,string name){try{action();}catch(InvalidOperationException){Check(true,name);return;}catch(ArgumentException){Check(true,name);return;}throw new Exception("FAIL: "+name);}
+var today=new DateOnly(2026,10,20);
+var b=new Ballot();
+Reject(()=>b.SubmitDemo(today),"empty ballot cannot be submitted");
+b.Choose("bagels","n0",today);b.Choose("bagels","n1",today);
+Check(b.Choices.Count==1 && b.Choices["bagels"]=="n1","replacement enforces one choice per category");
+Reject(()=>b.Choose("bagels","missing",today),"unknown nominees rejected");
+Reject(()=>b.Choose("missing","n0",today),"unknown categories rejected");
+b.Choose("coffee","n0",today);b.Remove("coffee",today);
+Check(b.Choices.Count==1,"removing a choice affects only its category");
+b.Language="fr";b.Nomination=new("Test place","Montréal","coffee","https://example.com");
+var restored=Ballot.Deserialize(b.Serialize());
+Check(restored.Choices["bagels"]=="n1" && restored.Language=="fr" && restored.Nomination?.City=="Montréal","draft, language and nomination survive serialization");
+b.SubmitDemo(today);
+Check(b.Receipt["bagels"]=="n1" && b.IsSubmitted(today),"submission records local receipt and date");
+Reject(()=>b.SubmitDemo(today),"repeat demo submission on same date rejected");
+Reject(()=>b.Choose("coffee","n0",today),"editing a saved ballot on same date rejected");
+Reject(()=>b.Remove("bagels",today),"removing from saved ballot on same date rejected");
+b.Choose("coffee","n0",today.AddDays(1));
+Check(b.Choices.Count==2 && b.Receipt.Count==1,"next day editable while prior receipt remains immutable");
+Check(Ballot.Deserialize("{broken").Choices.Count==0,"corrupted storage recovers");
+Check(Ballot.Deserialize("{\"Choices\":{\"missing\":\"n0\",\"bagels\":\"bad\"}}").Choices.Count==0,"stale catalogue choices dropped");
+Check(Ballot.Deserialize("{\"Choices\":null,\"Receipt\":null}").Choices.Count==0,"null storage collections recover");
+Check(Ballot.SearchKey("Café Montréal")=="cafe montreal","accent-insensitive search");
+Check(Ballot.MontrealToday(DateTimeOffset.Parse("2026-10-21T03:59:59Z"))==today,"daily limit uses Montréal date before midnight");
+Check(Ballot.MontrealToday(DateTimeOffset.Parse("2026-10-21T04:00:00Z"))==today.AddDays(1),"daily limit advances at Montréal midnight");
+b.RestartDemo();Check(b.SubmittedOn==null && b.Receipt.Count==0 && b.Choices.Count==2,"restart preserves editable choices");
+Console.WriteLine($"{tests} checks passed.");

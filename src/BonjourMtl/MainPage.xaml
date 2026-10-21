@@ -1,0 +1,75 @@
+<Page x:Class="BonjourMtl.MainPage"
+ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+ Background="#FAF9F6" RequestedTheme="Light">
+ <Page.Resources>
+  <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="#EEE7D7"/>
+  <SolidColorBrush x:Key="ButtonBackgroundPressed" Color="#E5D8B7"/>
+  <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="#191919"/>
+  <SolidColorBrush x:Key="ButtonForegroundPressed" Color="#191919"/>
+  <SolidColorBrush x:Key="TextControlBorderBrushFocused" Color="#9A762B"/>
+  <Style x:Key="QuietButton" TargetType="Button">
+   <Setter Property="Background" Value="Transparent"/><Setter Property="Foreground" Value="#191919"/>
+   <Setter Property="BorderThickness" Value="0"/><Setter Property="CornerRadius" Value="6"/>
+   <Setter Property="Padding" Value="16,12"/><Setter Property="MinHeight" Value="44"/>
+   <Setter Property="FontSize" Value="14"/><Setter Property="HorizontalContentAlignment" Value="Left"/>
+  </Style>
+  <Style x:Key="PrimaryButton" TargetType="Button" BasedOn="{StaticResource QuietButton}">
+   <Setter Property="Background" Value="#E6C875"/><Setter Property="Foreground" Value="#191919"/>
+   <Setter Property="FontWeight" Value="SemiBold"/><Setter Property="Padding" Value="22,14"/>
+   <Setter Property="HorizontalContentAlignment" Value="Center"/>
+  </Style>
+  <Style x:Key="CardButton" TargetType="Button" BasedOn="{StaticResource QuietButton}">
+   <Setter Property="Background" Value="White"/><Setter Property="Padding" Value="0"/>
+   <Setter Property="BorderThickness" Value="1"/><Setter Property="BorderBrush" Value="#E5E2DB"/>
+   <Setter Property="CornerRadius" Value="8"/><Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+   <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+  </Style>
+ </Page.Resources>
+ <Grid x:Name="Root" SizeChanged="OnSizeChanged">
+  <Grid.RowDefinitions><RowDefinition Height="86"/><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+  <Border Background="White" BorderBrush="#191919" BorderThickness="0,0,0,1">
+   <Grid x:Name="HeaderGrid" Margin="48,0" MaxWidth="1280">
+    <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+    <StackPanel VerticalAlignment="Center" Spacing="1">
+     <TextBlock x:Name="HeaderTitle" Foreground="#151515" FontFamily="Georgia" FontSize="36" FontWeight="Bold" CharacterSpacing="-35">
+      <Run Text="BEST "/><Run Text="of" FontStyle="Italic" FontWeight="Normal"/><Run Text=" MONTRÉAL"/>
+     </TextBlock>
+     <TextBlock x:Name="HeaderSubtitle" Text="THE CITY. THE PEOPLE. THE BEST." Foreground="#716B60" FontSize="9" CharacterSpacing="180"/>
+    </StackPanel>
+    <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="12" VerticalAlignment="Center">
+     <Border x:Name="DemoBadge" BorderBrush="#E4DED0" BorderThickness="1" CornerRadius="3" Padding="10,6" VerticalAlignment="Center">
+      <TextBlock x:Name="DemoLabel" Text="APP CONCEPT · 2026" FontSize="9" CharacterSpacing="90" Foreground="#716B60"/>
+     </Border>
+     <Button x:Name="LanguageButton" Content="FR" Click="ToggleLanguage" Style="{StaticResource QuietButton}" AutomationProperties.Name="Switch to French"/>
+    </StackPanel>
+   </Grid>
+  </Border>
+  <Border Grid.Row="1" Background="White" BorderBrush="#E5E2DB" BorderThickness="0,0,0,1">
+   <Grid x:Name="NavGrid" Margin="48,0" MaxWidth="1280">
+    <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+    <StackPanel x:Name="Navigation" Orientation="Horizontal" Spacing="8" Padding="0,3"/>
+    <TextBlock x:Name="EditionLabel" Grid.Column="1" Text="MONTRÉAL, C’EST VOUS." FontFamily="Georgia" FontStyle="Italic" FontSize="13" Foreground="#82714D" VerticalAlignment="Center"/>
+    <ScrollViewer x:Name="MobileNavigation" Grid.ColumnSpan="2" Visibility="Collapsed" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Disabled">
+     <StackPanel x:Name="MobileNavItems" Orientation="Horizontal" Padding="0,3" Spacing="2"/>
+    </ScrollViewer>
+   </Grid>
+  </Border>
+  <ScrollViewer x:Name="MainScroll" Grid.Row="2" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+   <StackPanel x:Name="ContentPanel" Margin="48,24,48,32" Spacing="24" MaxWidth="1280" HorizontalAlignment="Stretch"/>
+  </ScrollViewer>
+  <Border Grid.Row="3" Background="#191919" BorderBrush="#D7BA71" BorderThickness="0,2,0,0">
+   <Grid x:Name="BallotBar" Margin="48,12" MaxWidth="1280">
+    <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+    <StackPanel VerticalAlignment="Center" Spacing="3">
+     <TextBlock x:Name="BallotCount" FontSize="15" FontWeight="SemiBold" Foreground="White"/>
+     <TextBlock x:Name="BallotHint" FontSize="12" Foreground="#BBB7AD"/>
+    </StackPanel>
+    <Button x:Name="ReviewButton" Grid.Column="1" Click="ReviewBallot" Style="{StaticResource PrimaryButton}" Margin="16,0,0,0"/>
+   </Grid>
+  </Border>
+  <Border x:Name="Toast" Grid.RowSpan="4" Background="#191919" BorderBrush="#D7BA71" BorderThickness="1" CornerRadius="8" Padding="20,12" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="20,0,20,106" Visibility="Collapsed">
+   <TextBlock x:Name="ToastText" Foreground="White" FontSize="14" TextWrapping="Wrap" AutomationProperties.LiveSetting="Polite"/>
+  </Border>
+ </Grid>
+</Page>
